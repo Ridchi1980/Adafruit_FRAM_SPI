@@ -105,9 +105,14 @@ boolean Adafruit_FRAM_SPI::begin(uint8_t nAddressSizeBytes) {
 
   if (_clk == -1) { // hardware SPI!
     _spi->begin();
-    spiSettings =
-        SPISettings(20000000, MSBFIRST,
-                    SPI_MODE0); // Max SPI frequency for MB85RS64V is 20 MHz
+    _spi->setBitOrder(MSBFIRST);  //For compatiblity Controllino
+	  _spi->setDataMode(SPI_MODE0); //For compatiblity Controllino
+    
+    // v This not function by Controllino 
+    //spiSettings =
+    //    SPISettings(20000000, MSBFIRST,
+    //                SPI_MODE0); // Max SPI frequency for MB85RS64V is 20 MHz
+    
   } else {
     pinMode(_clk, OUTPUT);
     pinMode(_mosi, OUTPUT);
